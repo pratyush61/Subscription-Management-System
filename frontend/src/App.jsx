@@ -1,122 +1,57 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import Layout from './components/Layout'
+import ProtectedRoute from './components/ProtectedRoute'
+import { useAuth } from './context/AuthContext'
+import Login from './pages/auth/Login'
+import Register from './pages/auth/Register'
+import ForgotPassword from './pages/auth/ForgotPassword'
+import ResetPassword from './pages/auth/ResetPassword'
+import Dashboard from './pages/Dashboard'
+import Products from './pages/Products'
+import Plans from './pages/Plans'
+import Templates from './pages/Templates'
+import Discounts from './pages/Discounts'
+import Taxes from './pages/Taxes'
+import Team from './pages/Team'
+import Subscriptions from './pages/Subscriptions'
+import SubscriptionForm from './pages/SubscriptionForm'
+import SubscriptionDetail from './pages/SubscriptionDetail'
+import Invoices from './pages/Invoices'
+import InvoiceDetail from './pages/InvoiceDetail'
+import Payments from './pages/Payments'
+import PortalSubscriptions from './pages/portal/PortalSubscriptions'
+import PortalInvoices from './pages/portal/PortalInvoices'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const { user, isStaff } = useAuth()
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
 
-      <div className="ticks"></div>
+      <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+        <Route index element={user && !isStaff ? <Navigate to="/portal" replace /> : <ProtectedRoute staffOnly><Dashboard /></ProtectedRoute>} />
+        <Route path="subscriptions" element={<ProtectedRoute staffOnly><Subscriptions /></ProtectedRoute>} />
+        <Route path="subscriptions/new" element={<ProtectedRoute staffOnly><SubscriptionForm /></ProtectedRoute>} />
+        <Route path="subscriptions/:id" element={<ProtectedRoute staffOnly><SubscriptionDetail /></ProtectedRoute>} />
+        <Route path="subscriptions/:id/edit" element={<ProtectedRoute staffOnly><SubscriptionForm /></ProtectedRoute>} />
+        <Route path="invoices" element={<ProtectedRoute staffOnly><Invoices /></ProtectedRoute>} />
+        <Route path="invoices/:id" element={<ProtectedRoute staffOnly><InvoiceDetail /></ProtectedRoute>} />
+        <Route path="payments" element={<ProtectedRoute staffOnly><Payments /></ProtectedRoute>} />
+        <Route path="products" element={<ProtectedRoute staffOnly><Products /></ProtectedRoute>} />
+        <Route path="plans" element={<ProtectedRoute staffOnly><Plans /></ProtectedRoute>} />
+        <Route path="templates" element={<ProtectedRoute staffOnly><Templates /></ProtectedRoute>} />
+        <Route path="discounts" element={<ProtectedRoute staffOnly><Discounts /></ProtectedRoute>} />
+        <Route path="taxes" element={<ProtectedRoute staffOnly><Taxes /></ProtectedRoute>} />
+        <Route path="team" element={<ProtectedRoute adminOnly><Team /></ProtectedRoute>} />
+        <Route path="portal" element={<ProtectedRoute customerOnly><PortalSubscriptions /></ProtectedRoute>} />
+        <Route path="portal/invoices" element={<ProtectedRoute customerOnly><PortalInvoices /></ProtectedRoute>} />
+      </Route>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   )
 }
-
-export default App

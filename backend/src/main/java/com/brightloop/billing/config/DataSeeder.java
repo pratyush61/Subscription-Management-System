@@ -26,8 +26,12 @@ public class DataSeeder implements CommandLineRunner {
             return;
         }
         createUser("Brightloop Admin", "admin@brightloop.com", "Admin@12345", Role.ADMIN);
-        createUser("Priya Sharma", "staff@brightloop.com", "Staff@12345", Role.STAFF);
-        createUser("Northwind Traders", "customer@brightloop.com", "Customer@123", Role.CUSTOMER);
+        createUser("Brightloop Staff", "staff@brightloop.com", "Staff@12345", Role.STAFF);
+        createUser("Rishabh Maurya", "rishabh@brightloop.com", "rishabh@123", Role.CUSTOMER);
+        createUser("Pratyush Dubey", "pratyush@brightloop.com", "pratyush@123", Role.CUSTOMER);
+        createUser("Kratika", "kratika@brightloop.com", "kratika@123", Role.CUSTOMER);
+        createUser("Naina", "naina@brightloop.com", "naina@123", Role.CUSTOMER);
+
 
         Tax gst = new Tax();
         gst.setName("GST 18%");

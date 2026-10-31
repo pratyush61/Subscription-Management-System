@@ -51,7 +51,10 @@ export default function Login() {
         Try a demo account:{' '}
         <a href="#admin" onClick={(e) => { e.preventDefault(); fill('admin@brightloop.com', 'Admin@12345') }}>admin</a>,{' '}
         <a href="#staff" onClick={(e) => { e.preventDefault(); fill('staff@brightloop.com', 'Staff@12345') }}>staff</a>,{' '}
-        <a href="#customer" onClick={(e) => { e.preventDefault(); fill('customer@brightloop.com', 'Customer@123') }}>customer</a>
+        <a href="#staff" onClick={(e) => { e.preventDefault(); fill('rishabh@brightloop.com', 'rishabh@123') }}>Rishabh</a>,{' '}
+        <a href="#staff" onClick={(e) => { e.preventDefault(); fill('pratyush@brightloop.com', 'pratyush@123') }}>Pratyush</a>,{' '}
+        <a href="#staff" onClick={(e) => { e.preventDefault(); fill('kratika@brightloop.com', 'kratika@123') }}>Kratika</a>,{' '}
+        <a href="#customer" onClick={(e) => { e.preventDefault(); fill('naina@brightloop.com', 'naina@123') }}>Naina</a>
       </div>
     </AuthShell>
   )

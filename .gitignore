@@ -5,4 +5,4 @@ target/
 .vscode/
 *.log
 # Secret credentials
-src/main/resources/secret.properties
+**/secret.properties
